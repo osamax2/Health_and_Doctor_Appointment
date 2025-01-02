@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class AppointmentHistoryList extends StatefulWidget {
   @override
@@ -19,9 +18,13 @@ class _AppointmentHistoryListState extends State<AppointmentHistoryList> {
   }
 
   String _dateFormatter(String _timestamp) {
-    String formattedDate =
-        DateFormat('dd-MM-yyyy').format(DateTime.parse(_timestamp));
-    return formattedDate;
+     DateTime dateTime = DateTime.parse(_timestamp);
+
+  String day = dateTime.day.toString().padLeft(2, '0');
+  String month = dateTime.month.toString().padLeft(2, '0');
+  String year = dateTime.year.toString();
+
+  return '$day-$month-$year'; // dd-MM-yyyy
   }
 
   Future<void> deleteAppointment(String docID) {
@@ -34,9 +37,12 @@ class _AppointmentHistoryListState extends State<AppointmentHistoryList> {
   }
 
   String _timeFormatter(String _timestamp) {
-    String formattedTime =
-        DateFormat('kk:mm').format(DateTime.parse(_timestamp));
-    return formattedTime;
+   DateTime dateTime = DateTime.parse(_timestamp);
+
+  String hour = dateTime.hour.toString().padLeft(2, '0');
+  String minute = dateTime.minute.toString().padLeft(2, '0');
+
+  return '$hour:$minute'; // kk:mm
   }
 
   @override

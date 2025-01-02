@@ -7,7 +7,6 @@ import 'package:health_and_doctor_appointment/carouselSlider.dart';
 import 'package:health_and_doctor_appointment/screens/exploreList.dart';
 import 'package:health_and_doctor_appointment/firestore-data/searchList.dart';
 import 'package:health_and_doctor_appointment/firestore-data/topRatedList.dart';
-import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,8 +46,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String _currentHour = DateFormat('kk').format(now);
-    int hour = int.parse(_currentHour);
+    int hour = now.hour;
     String _message = 'Hello'; 
 
     setState(() {

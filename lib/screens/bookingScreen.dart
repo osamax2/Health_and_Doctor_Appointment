@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/myAppointments.dart';
-import 'package:intl/intl.dart';
 
 class BookingScreen extends StatefulWidget {
   final String doctor;
@@ -53,10 +52,9 @@ class _BookingScreenState extends State<BookingScreen> {
         setState(
           () {
             selectedDate = date!;
-            String formattedDate =
-                DateFormat('dd-MM-yyyy').format(selectedDate);
+            String formattedDate = selectedDate.toLocal().toString();
             _dateController.text = formattedDate;
-            dateUTC = DateFormat('yyyy-MM-dd').format(selectedDate);
+            dateUTC = selectedDate.toUtc().toString();
           },
         );
       },
