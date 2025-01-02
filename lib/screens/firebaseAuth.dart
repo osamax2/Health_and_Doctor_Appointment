@@ -6,10 +6,6 @@ import 'package:health_and_doctor_appointment/screens/signIn.dart';
 class FireBaseAuth extends StatefulWidget {
   @override
   _FireBaseAuthState createState() => _FireBaseAuthState();
-
-  // void out2(BuildContext context) {
-  //   Navigator.pop(context);
-  // }
 }
 
 class _FireBaseAuthState extends State<FireBaseAuth> {
@@ -41,16 +37,18 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                     Text(
                       'HELLO',
                       style: GoogleFonts.b612(
-                          color: Colors.black,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w700),
+                        color: Colors.black,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     Text(
                       'Welcome to Medico!',
                       style: GoogleFonts.b612(
-                          color: Colors.indigo[800],
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400),
+                        color: Colors.indigo[800],
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
@@ -89,11 +87,8 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                               ),
                               onPressed: () => _pushPage(context, SignIn()),
                               style: ElevatedButton.styleFrom(
-                                elevation: 2,
-                                primary: Colors.indigo[800],
-                                onPrimary: Colors.indigo[800],
+                                foregroundColor: Colors.indigo[800]!, elevation: 2, backgroundColor: Colors.indigo[800]!,
                                 shape: RoundedRectangleBorder(
-                                  
                                   borderRadius: BorderRadius.circular(32.0),
                                 ),
                               ),
@@ -118,11 +113,8 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                               ),
                               onPressed: () => _pushPage(context, Register()),
                               style: ElevatedButton.styleFrom(
-                                elevation: 2,
-                                primary: Colors.white,
-                                onPrimary: Colors.white,
+                                foregroundColor: Colors.white, elevation: 2, backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  
                                   borderRadius: BorderRadius.circular(32.0),
                                 ),
                               ),
@@ -131,30 +123,6 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                           padding: const EdgeInsets.all(16),
                           alignment: Alignment.center,
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width / 1.1,
-                        //   child: ButtonTheme(
-                        //     minWidth: double.infinity,
-                        //     height: 50.0,
-                        //     child: RaisedButton(
-                        //       color: Colors.indigo[800],
-                        //       child: Text(
-                        //         "Create an account",
-                        //         style: GoogleFonts.lato(
-                        //           color: Colors.white,
-                        //           fontSize: 18.0,
-                        //           fontWeight: FontWeight.bold,
-                        //         ),
-                        //       ),
-                        //       onPressed: () => _pushPage(context, Register()),
-                        //     ),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: new BorderRadius.circular(25),
-                        //     ),
-                        //   ),
-                        //   padding: const EdgeInsets.all(16),
-                        //   alignment: Alignment.center,
-                        // ),
                       ],
                     ),
                   ),
@@ -166,7 +134,7 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
             ),
           ),
         ],
-      ), //<--
+      ),
     );
   }
 

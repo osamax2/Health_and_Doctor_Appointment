@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/bookingScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 class DoctorProfile extends StatefulWidget {
   final String doctor;
 
-  const DoctorProfile({Key key, this.doctor}) : super(key: key);
+  const DoctorProfile({Key? key, required this.doctor}) : super(key: key);
   @override
   _DoctorProfileState createState() => _DoctorProfileState();
 }
@@ -43,13 +41,13 @@ class _DoctorProfileState extends State<DoctorProfile> {
             }
             return NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overscroll) {
-                overscroll.disallowGlow();
-                return;
+                overscroll.disallowIndicator();
+                return true;
               },
               child: ListView.builder(
-                itemCount: snapshot.data.size,
+                itemCount: snapshot.data!.size,
                 itemBuilder: (context, index) {
-                  DocumentSnapshot document = snapshot.data.docs[index];
+                  DocumentSnapshot document = snapshot.data!.docs[index];
                   return Container(
                     margin: EdgeInsets.only(top: 5),
                     child: Column(
@@ -72,7 +70,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         ),
                         CircleAvatar(
                           backgroundImage: NetworkImage(document['image']),
-                          //backgroundColor: Colors.lightBlue[100],
                           radius: 80,
                         ),
                         SizedBox(
@@ -91,7 +88,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         Text(
                           document['type'],
                           style: GoogleFonts.lato(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 18,
                               color: Colors.black54),
                         ),
@@ -171,7 +167,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                               SizedBox(
                                 width: 15,
                               ),
-                              Icon(FlutterIcons.phone_in_talk_mco),
+                              Icon(Icons.phone_in_talk),
                               SizedBox(
                                 width: 11,
                               ),
@@ -251,9 +247,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           width: MediaQuery.of(context).size.width,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              elevation: 2,
-                              primary: Colors.indigo.withOpacity(0.9),
-                              onPrimary: Colors.black,
+                              foregroundColor: Colors.black, elevation: 2, backgroundColor: Colors.indigo.withOpacity(0.9),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(32.0),
                               ),

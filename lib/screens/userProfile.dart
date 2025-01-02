@@ -1,15 +1,13 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:health_and_doctor_appointment/firestore-data/appointmentHistoryList.dart';
 import 'package:health_and_doctor_appointment/screens/userSettings.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({Key key}) : super(key: key);
+  const UserProfile({Key? key}) : super(key: key);
 
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -18,10 +16,10 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
+  late User user;
 
   Future<void> _getUser() async {
-    user = _auth.currentUser;
+    user = _auth.currentUser!;
   }
 
   @override
@@ -36,11 +34,11 @@ class _UserProfileState extends State<UserProfile> {
       body: SafeArea(
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overscroll) {
-            overscroll.disallowGlow();
-            return;
+            overscroll.disallowIndicator();
+            return false;
           },
           child: ListView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
             children: <Widget>[
               Stack(
@@ -49,7 +47,7 @@ class _UserProfileState extends State<UserProfile> {
                   Column(
                     children: [
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -62,11 +60,11 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         height: MediaQuery.of(context).size.height / 5,
                         child: Container(
-                          padding: EdgeInsets.only(top: 10, right: 7),
+                          padding: const EdgeInsets.only(top: 10, right: 7),
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            icon: Icon(
-                              FlutterIcons.gear_faw,
+                            icon: const Icon(
+                              Icons.settings,
                               color: Colors.white,
                               size: 20,
                             ),
@@ -84,9 +82,9 @@ class _UserProfileState extends State<UserProfile> {
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height / 5,
-                        padding: EdgeInsets.only(top: 75),
+                        padding: const EdgeInsets.only(top: 75),
                         child: Text(
-                          user.displayName,
+                          user.displayName ?? "No Name",
                           style: GoogleFonts.lato(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -96,28 +94,29 @@ class _UserProfileState extends State<UserProfile> {
                     ],
                   ),
                   Container(
-                    child: CircleAvatar(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.teal.shade50,
+                        width: 5,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const CircleAvatar(
                       radius: 80,
                       backgroundColor: Colors.white,
                       backgroundImage: AssetImage('assets/person.jpg'),
                     ),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.teal[50],
-                          width: 5,
-                        ),
-                        shape: BoxShape.circle),
                   ),
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(left: 15, right: 15),
-                padding: EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.only(left: 20),
                 height: MediaQuery.of(context).size.height / 7,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.blueGrey[50],
+                  color: Colors.blueGrey.shade50,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -130,19 +129,17 @@ class _UserProfileState extends State<UserProfile> {
                           child: Container(
                             height: 27,
                             width: 27,
-                            color: Colors.red[900],
-                            child: Icon(
+                            color: Colors.red.shade900,
+                            child: const Icon(
                               Icons.mail_rounded,
                               color: Colors.white,
                               size: 16,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
-                          user.email,
+                          user.email ?? "No Email",
                           style: GoogleFonts.lato(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -151,9 +148,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -162,21 +157,19 @@ class _UserProfileState extends State<UserProfile> {
                           child: Container(
                             height: 27,
                             width: 27,
-                            color: Colors.blue[800],
-                            child: Icon(
+                            color: Colors.blue.shade800,
+                            child: const Icon(
                               Icons.phone,
                               color: Colors.white,
                               size: 16,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
-                          user?.phoneNumber?.isEmpty ?? true
+                          user.phoneNumber?.isEmpty ?? true
                               ? "Not Added"
-                              : user.phoneNumber,
+                              : user.phoneNumber!,
                           style: GoogleFonts.lato(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -189,13 +182,13 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 15, right: 15, top: 20),
-                padding: EdgeInsets.only(left: 20, top: 20),
+                margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                padding: const EdgeInsets.only(left: 20, top: 20),
                 height: MediaQuery.of(context).size.height / 7,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.blueGrey[50],
+                  color: Colors.blueGrey.shade50,
                 ),
                 child: Column(
                   children: [
@@ -206,17 +199,15 @@ class _UserProfileState extends State<UserProfile> {
                           child: Container(
                             height: 27,
                             width: 27,
-                            color: Colors.indigo[600],
-                            child: Icon(
-                              FlutterIcons.pencil_ent,
+                            color: Colors.indigo.shade600,
+                            child: const Icon(
+                              Icons.edit,
                               color: Colors.white,
                               size: 16,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
                           'Bio',
                           style: GoogleFonts.lato(
@@ -227,20 +218,18 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ],
                     ),
-                    Container(
-                      child: getBio(),
-                    )
+                    getBio(),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 15, right: 15, top: 20),
-                padding: EdgeInsets.only(left: 20, top: 20),
+                margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                padding: const EdgeInsets.only(left: 20, top: 20),
                 height: MediaQuery.of(context).size.height / 5,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.blueGrey[50],
+                  color: Colors.blueGrey.shade50,
                 ),
                 child: Column(
                   children: [
@@ -251,17 +240,15 @@ class _UserProfileState extends State<UserProfile> {
                           child: Container(
                             height: 27,
                             width: 27,
-                            color: Colors.green[900],
-                            child: Icon(
-                              FlutterIcons.history_faw,
+                            color: Colors.green.shade900,
+                            child: const Icon(
+                              Icons.history,
                               color: Colors.white,
                               size: 16,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
                           "Appointment History",
                           style: GoogleFonts.lato(
@@ -272,26 +259,25 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10),
                             alignment: Alignment.centerRight,
                             child: SizedBox(
                               height: 30,
                               child: TextButton(
                                 onPressed: () {},
-                                child: Text('View all'),
+                                child: const Text('View all'),
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: Scrollbar(
                         child: Container(
-                          padding: EdgeInsets.only(left: 35, right: 15),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 15),
                           child: SingleChildScrollView(
                             child: AppointmentHistoryList(),
                           ),
@@ -301,9 +287,7 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -311,31 +295,34 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-  Widget getBio() {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        var userData = snapshot.data;
-        return Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(top: 10, left: 40),
-          child: Text(
-            userData['bio'] == null ? "No Bio" : userData['bio'],
-            style: GoogleFonts.lato(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.black38,
-            ),
-          ),
+Widget getBio() {
+  return StreamBuilder<DocumentSnapshot>(
+    stream: FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData || snapshot.data == null) {
+        return const Center(
+          child: CircularProgressIndicator(),
         );
-      },
-    );
-  }
+      }
+
+      var userData = snapshot.data!.data() as Map<String, dynamic>?;
+
+      return Container(
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.only(top: 10, left: 40),
+        child: Text(
+          userData?['bio'] ?? "No Bio",
+          style: GoogleFonts.lato(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.black38,
+          ),
+        ),
+      );
+    },
+  );
+}
 }

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/doctorProfile.dart';
-import 'package:typicons_flutter/typicons_flutter.dart';
 
 class TopRatedList extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class TopRatedList extends StatefulWidget {
 }
 
 class _TopRatedListState extends State<TopRatedList> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,17 +18,18 @@ class _TopRatedListState extends State<TopRatedList> {
             .orderBy('rating', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData)
+          if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
+          }
           return ListView.builder(
             scrollDirection: Axis.vertical,
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
             itemCount: 5,
             itemBuilder: (context, index) {
-              DocumentSnapshot doctor = snapshot.data.docs[index];
+              DocumentSnapshot doctor = snapshot.data!.docs[index];
               return Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
@@ -56,11 +55,9 @@ class _TopRatedListState extends State<TopRatedList> {
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircleAvatar(
                             backgroundImage: NetworkImage(doctor['image']),
-                            //backgroundColor: Colors.blue,
                             radius: 25,
                           ),
                           SizedBox(
@@ -81,7 +78,9 @@ class _TopRatedListState extends State<TopRatedList> {
                               Text(
                                 doctor['type'],
                                 style: GoogleFonts.lato(
-                                    fontSize: 16, color: Colors.black54),
+                                  fontSize: 16,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ],
                           ),
@@ -96,11 +95,11 @@ class _TopRatedListState extends State<TopRatedList> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Icon(
-                                    Typicons.star_full_outline,
+                                    Icons.star,
                                     size: 20,
                                     color: Colors.indigo[400],
                                   ),
-                                  SizedBox(width: 3,),
+                                  SizedBox(width: 3),
                                   Text(
                                     doctor['rating'].toString(),
                                     style: GoogleFonts.lato(

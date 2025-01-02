@@ -9,16 +9,16 @@ class UserSettings extends StatefulWidget {
 }
 
 class _UserSettingsState extends State<UserSettings> {
-  UserDetails detail = new UserDetails();
+  UserDetails detail = UserDetails();
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
+  late User user;
 
   Future<void> _getUser() async {
-    user = _auth.currentUser;
+    user = _auth.currentUser!;
   }
 
-  Future _signOut() async {
+  Future<void> _signOut() async {
     await _auth.signOut();
   }
 
@@ -48,7 +48,10 @@ class _UserSettingsState extends State<UserSettings> {
         title: Text(
           'User Settings',
           style: GoogleFonts.lato(
-              color: Colors.indigo, fontSize: 20, fontWeight: FontWeight.bold),
+            color: Colors.indigo,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Column(
@@ -61,7 +64,7 @@ class _UserSettingsState extends State<UserSettings> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.blueGrey[50],
+              color: Colors.blueGrey[50]!,
             ),
             child: TextButton(
               onPressed: () {
@@ -69,7 +72,9 @@ class _UserSettingsState extends State<UserSettings> {
                     '/login', (Route<dynamic> route) => false);
                 _signOut();
               },
-              style: TextButton.styleFrom(primary: Colors.grey),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey,
+              ),
               child: Text(
                 'Sign out',
                 style: GoogleFonts.lato(

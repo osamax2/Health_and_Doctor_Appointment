@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/doctorProfile.dart';
-import 'package:typicons_flutter/typicons_flutter.dart';
 
 class SearchList extends StatefulWidget {
   final String searchKey;
-  const SearchList({Key key, this.searchKey}) : super(key: key);
+  const SearchList({Key? key, required this.searchKey}) : super(key: key);
 
   @override
   _SearchListState createState() => _SearchListState();
@@ -22,15 +21,15 @@ class _SearchListState extends State<SearchList> {
           stream: FirebaseFirestore.instance
               .collection('doctors')
               .orderBy('name')
-              .startAt(['Dr. ' + widget.searchKey]).endAt(
-                  ['Dr. ' + widget.searchKey + '\uf8ff']).snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData)
+              .startAt(['Dr. ' + widget.searchKey])
+              .endAt(['Dr. ' + widget.searchKey + '\uf8ff']).snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            return snapshot.data.size == 0
+            }
+            return snapshot.data!.size == 0
                 ? Center(
                     child: Container(
                       child: Column(
@@ -55,13 +54,13 @@ class _SearchListState extends State<SearchList> {
                     ),
                   )
                 : Scrollbar(
-                  child: ListView.builder(
+                    child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: snapshot.data.size,
+                      itemCount: snapshot.data!.size,
                       itemBuilder: (context, index) {
-                        DocumentSnapshot doctor = snapshot.data.docs[index];
+                        DocumentSnapshot doctor = snapshot.data!.docs[index];
                         return Padding(
                           padding: const EdgeInsets.only(top: 0.0),
                           child: Card(
@@ -71,8 +70,7 @@ class _SearchListState extends State<SearchList> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Container(
-                              padding:
-                                  EdgeInsets.only(left: 10, right: 10, top: 0),
+                              padding: EdgeInsets.only(left: 10, right: 10, top: 0),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height / 9,
                               child: TextButton(
@@ -88,19 +86,16 @@ class _SearchListState extends State<SearchList> {
                                 },
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     CircleAvatar(
                                       backgroundImage: NetworkImage(doctor['image']),
-                                      //backgroundColor: Colors.blue,
                                       radius: 25,
                                     ),
                                     SizedBox(
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
@@ -114,8 +109,9 @@ class _SearchListState extends State<SearchList> {
                                         Text(
                                           doctor['type'],
                                           style: GoogleFonts.lato(
-                                              fontSize: 16,
-                                              color: Colors.black54),
+                                            fontSize: 16,
+                                            color: Colors.black54,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -126,13 +122,11 @@ class _SearchListState extends State<SearchList> {
                                       child: Container(
                                         alignment: Alignment.centerRight,
                                         child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             Icon(
-                                              Typicons.star_full_outline,
+                                              Icons.star,
                                               size: 20,
                                               color: Colors.indigo[400],
                                             ),
@@ -159,7 +153,7 @@ class _SearchListState extends State<SearchList> {
                         );
                       },
                     ),
-                );
+                  );
           },
         ),
       ),

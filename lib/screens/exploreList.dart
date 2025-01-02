@@ -3,11 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/doctorProfile.dart';
-import 'package:typicons_flutter/typicons_flutter.dart';
 
 class ExploreList extends StatefulWidget {
   final String type;
-  const ExploreList({Key key, this.type}) : super(key: key);
+  const ExploreList({Key? key, required this.type}) : super(key: key);
 
   @override
   _ExploreListState createState() => _ExploreListState();
@@ -20,7 +19,7 @@ class _ExploreListState extends State<ExploreList> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          widget.type + 's',
+          '${widget.type}s',
           style: GoogleFonts.lato(
             color: Colors.black,
             fontSize: 20,
@@ -37,10 +36,10 @@ class _ExploreListState extends State<ExploreList> {
           stream: FirebaseFirestore.instance
               .collection('doctors')
               .orderBy('type')
-              .startAt([widget.type]).endAt(
-                  [widget.type + '\uf8ff']).snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              .startAt([widget.type])
+              .endAt(['${widget.type}\uf8ff'])
+              .snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
@@ -50,13 +49,13 @@ class _ExploreListState extends State<ExploreList> {
               scrollDirection: Axis.vertical,
               physics: ClampingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: snapshot.data.size,
+              itemCount: snapshot.data!.size,
               itemBuilder: (context, index) {
-                DocumentSnapshot doctor = snapshot.data.docs[index];
+                DocumentSnapshot doctor = snapshot.data!.docs[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Card(
-                    color: Colors.blue[50],
+                    color: Colors.blue[50]!,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -78,7 +77,6 @@ class _ExploreListState extends State<ExploreList> {
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CircleAvatar(
                               backgroundColor: Colors.blue,
@@ -102,7 +100,9 @@ class _ExploreListState extends State<ExploreList> {
                                 Text(
                                   doctor['type'],
                                   style: GoogleFonts.lato(
-                                      fontSize: 16, color: Colors.black54),
+                                    fontSize: 16,
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               ],
                             ),
@@ -117,9 +117,9 @@ class _ExploreListState extends State<ExploreList> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Icon(
-                                      Typicons.star_full_outline,
+                                      Icons.star,
                                       size: 20,
-                                      color: Colors.indigo[400],
+                                      color: Colors.indigo[400]!,
                                     ),
                                     SizedBox(
                                       width: 3,

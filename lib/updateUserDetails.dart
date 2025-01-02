@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class UpdateUserDetails extends StatefulWidget {
   final String label;
   final String field;
-  const UpdateUserDetails({Key key, this.label, this.field}) : super(key: key);
+  const UpdateUserDetails({Key? key, required this.label, required this.field}) : super(key: key);
 
   @override
   _UpdateUserDetailsState createState() => _UpdateUserDetailsState();
@@ -14,13 +14,13 @@ class UpdateUserDetails extends StatefulWidget {
 
 class _UpdateUserDetailsState extends State<UpdateUserDetails> {
   TextEditingController _textcontroller = TextEditingController();
-  FocusNode f1;
+  FocusNode f1 = FocusNode();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
-  String UserID;
+  late User user;
+  late String UserID;
 
   Future<void> _getUser() async {
-    user = _auth.currentUser;
+    user = _auth.currentUser!;
     UserID = user.uid;
   }
 
@@ -61,32 +61,41 @@ class _UpdateUserDetailsState extends State<UpdateUserDetails> {
         padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
         child: Column(
           children: [
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(UserID)
-                  .snapshots(),
+            FutureBuilder(
+              future: _getUser(),
               builder: (context, snapshot) {
-                var userData = snapshot.data;
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                    controller: _textcontroller,
-                    style: GoogleFonts.lato(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    onFieldSubmitted: (String _data) {
-                      _textcontroller.text = _data;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else {
+                  return StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(UserID)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      var userData = snapshot.data;
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        child: TextFormField(
+                          controller: _textcontroller,
+                          style: GoogleFonts.lato(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onFieldSubmitted: (String _data) {
+                            _textcontroller.text = _data;
+                          },
+                          textInputAction: TextInputAction.done,
+                          validator: (value) {
+                            if (value!.isEmpty)
+                              return 'Please Enter the ${widget.label}';
+                            return null;
+                          },
+                        ),
+                      );
                     },
-                    textInputAction: TextInputAction.done,
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Please Enter the ' + widget.label;
-                      return null;
-                    },
-                  ),
-                );
+                  );
+                }
               },
             ),
             SizedBox(
@@ -102,9 +111,7 @@ class _UpdateUserDetailsState extends State<UpdateUserDetails> {
                   updateData();
                 },
                 style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  primary: Colors.indigo.withOpacity(0.9),
-                  onPrimary: Colors.black,
+                  foregroundColor: Colors.black, elevation: 2, backgroundColor: Colors.indigo.withOpacity(0.9),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
                   ),
@@ -132,6 +139,7 @@ class _UpdateUserDetailsState extends State<UpdateUserDetails> {
       await user.updateProfile(displayName: _textcontroller.text);
     }
     if (widget.field.compareTo('phone') == 0) {
+      // Add phone update logic here
     }
   }
 }

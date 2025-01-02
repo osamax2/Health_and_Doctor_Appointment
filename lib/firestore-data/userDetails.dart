@@ -11,13 +11,13 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
+  late User user;
 
   Future<void> _getUser() async {
-    user = _auth.currentUser;
+    user = _auth.currentUser!;
   }
 
-  List labelName = [
+  List<String> labelName = [
     'Name',
     'Email',
     'Mobile Number',
@@ -26,7 +26,7 @@ class _UserDetailsState extends State<UserDetails> {
     'City',
   ];
 
-  List value = [
+  List<String> value = [
     'name',
     'email',
     'phone',
@@ -45,23 +45,24 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: StreamBuilder(
+      child: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          var userData = snapshot.data;
+          }
+          var userData = snapshot.data!;
           return ListView(
             scrollDirection: Axis.vertical,
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
             children: List.generate(
-              6,
+              labelName.length,
               (index) => Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: InkWell(
@@ -69,17 +70,19 @@ class _UserDetailsState extends State<UserDetails> {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UpdateUserDetails(
-                                  label: labelName[index],
-                                  field: value[index],
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UpdateUserDetails(
+                          label: labelName[index],
+                          field: value[index],
+                        ),
+                      ),
+                    );
                   },
                   child: Ink(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey[200],
+                      color: Colors.grey[200]!,
                     ),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 14),

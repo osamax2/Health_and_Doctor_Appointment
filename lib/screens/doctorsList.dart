@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/firestore-data/searchList.dart';
 
@@ -10,8 +9,8 @@ class DoctorsList extends StatefulWidget {
 }
 
 class _DoctorsListState extends State<DoctorsList> {
-  TextEditingController _textController = new TextEditingController();
-  String search;
+  TextEditingController _textController = TextEditingController();
+  String search = "";
   var _length = 0;
 
   @override
@@ -32,12 +31,19 @@ class _DoctorsListState extends State<DoctorsList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Find Doctors'),
+        title: Text(
+          'Find Doctors',
+          style: GoogleFonts.lato(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: <Widget>[
           SafeArea(
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width * 0.7,
               child: TextFormField(
                 controller: _textController,
                 decoration: InputDecoration(
@@ -48,7 +54,7 @@ class _DoctorsListState extends State<DoctorsList> {
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
-                  fillColor: Colors.grey[300],
+                  fillColor: Colors.grey[300]!,
                   hintText: 'Search Doctor',
                   hintStyle: GoogleFonts.lato(
                     color: Colors.black26,
@@ -56,18 +62,16 @@ class _DoctorsListState extends State<DoctorsList> {
                     fontWeight: FontWeight.w800,
                   ),
                   prefixIcon: Icon(
-                    FlutterIcons.search1_ant,
+                    Icons.search,
                     size: 20,
+                    color: Colors.black26,
                   ),
-                  prefixStyle: TextStyle(
-                    color: Colors.grey[300],
-                  ),
-                  suffixIcon: _textController.text.length != 0
+                  suffixIcon: _textController.text.isNotEmpty
                       ? TextButton(
                           onPressed: () {
                             setState(() {
                               _textController.clear();
-                              _length = search.length;
+                              _length = 0;
                             });
                           },
                           child: Icon(
@@ -77,26 +81,16 @@ class _DoctorsListState extends State<DoctorsList> {
                         )
                       : SizedBox(),
                 ),
-                // onFieldSubmitted: (String _searchKey) {
-                //   setState(
-                //     () {
-                //       print('>>>' + _searchKey);
-                //       search = _searchKey;
-                //     },
-                //   );
-                // },
                 onChanged: (String _searchKey) {
-                  setState(
-                    () {
-                      print('>>>' + _searchKey);
-                      search = _searchKey;
-                      _length = search.length;
-                    },
-                  );
+                  setState(() {
+                    search = _searchKey;
+                    _length = search.length;
+                  });
                 },
                 style: GoogleFonts.lato(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
                 textInputAction: TextInputAction.search,
                 autofocus: false,

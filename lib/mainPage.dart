@@ -8,9 +8,7 @@ import 'package:health_and_doctor_appointment/screens/doctorsList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:typicons_flutter/typicons_flutter.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 class MainPage extends StatefulWidget {
@@ -24,20 +22,15 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _pages = [
     HomePage(),
     DoctorsList(),
-    //Center(child: Text('New Appointment')),
     MyAppointments(),
     UserProfile(),
   ];
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
+  late User user;
 
   Future<void> _getUser() async {
-    user = _auth.currentUser;
-  }
-
-  _navigate(Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
+    user = _auth.currentUser!;
   }
 
   String shortcut = "no action set";
@@ -78,12 +71,11 @@ class _MainPageState extends State<MainPage> {
           ),
           child: SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
               child: GNav(
                 curve: Curves.easeOutExpo,
-                rippleColor: Colors.grey[300],
-                hoverColor: Colors.grey[100],
+                rippleColor: Colors.grey[300]!,
+                hoverColor: Colors.grey[100]!,
                 haptic: true,
                 tabBorderRadius: 20,
                 gap: 5,
@@ -97,27 +89,21 @@ class _MainPageState extends State<MainPage> {
                 tabs: [
                   GButton(
                     iconSize: _selectedIndex != 0 ? 28 : 25,
-                    icon: _selectedIndex == 0
-                        ? FlutterIcons.home_fou
-                        : FlutterIcons.home_variant_outline_mco,
+                    icon: _selectedIndex == 0 ? Icons.home : Icons.home_outlined,
                     text: 'Home',
                   ),
                   GButton(
-                    icon: FlutterIcons.search1_ant,
+                    icon: Icons.search,
                     text: 'Search',
                   ),
                   GButton(
                     iconSize: 28,
-                    icon: _selectedIndex == 2
-                        ? Typicons.calendar
-                        : Typicons.calendar_outline,
+                    icon: _selectedIndex == 2 ? Icons.calendar_today : Icons.calendar_today_outlined,
                     text: 'Schedule',
                   ),
                   GButton(
                     iconSize: 29,
-                    icon: _selectedIndex == 3
-                        ? Typicons.user
-                        : Typicons.user_outline,
+                    icon: _selectedIndex == 3 ? Icons.person : Icons.person_outline,
                     text: 'Profile',
                   ),
                 ],

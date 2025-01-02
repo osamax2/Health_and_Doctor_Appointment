@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/register.dart';
 
@@ -18,9 +17,9 @@ class _SignInState extends State<SignIn> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _passwordController = TextEditingController();
 
-  FocusNode f1 = new FocusNode();
-  FocusNode f2 = new FocusNode();
-  FocusNode f3 = new FocusNode();
+  FocusNode f1 = FocusNode();
+  FocusNode f2 = FocusNode();
+  FocusNode f3 = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +30,14 @@ class _SignInState extends State<SignIn> {
         return SafeArea(
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overscroll) {
-              overscroll.disallowGlow();
-              return;
+              overscroll.disallowIndicator();
+              return false;
             },
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
                     child: withEmailPassword(),
                   ),
                 ],
@@ -54,24 +53,20 @@ class _SignInState extends State<SignIn> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.only(right: 16, left: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               width: double.infinity,
-              child: Container(
-                child: Image.asset(
-                  'assets/vector-doc2.jpg',
-                  scale: 3.5,
-                ),
+              child: Image.asset(
+                'assets/vector-doc2.jpg',
+                scale: 3.5,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
-              padding: EdgeInsets.only(bottom: 25),
+              padding: const EdgeInsets.only(bottom: 25),
               child: Text(
                 'Login',
                 style: GoogleFonts.lato(
@@ -89,13 +84,14 @@ class _SignInState extends State<SignIn> {
               keyboardType: TextInputType.emailAddress,
               controller: _emailController,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(90.0)),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey[350],
+                fillColor: Colors.grey[300],
                 hintText: 'Email',
                 hintStyle: GoogleFonts.lato(
                   color: Colors.black26,
@@ -109,34 +105,31 @@ class _SignInState extends State<SignIn> {
               },
               textInputAction: TextInputAction.next,
               validator: (value) {
-                if (value.isEmpty) {
+                if (value == null || value.isEmpty) {
                   return 'Please enter the Email';
                 } else if (!emailValidate(value)) {
-                  return 'Please enter correct Email';
-                } else {
-                  return null;
+                  return 'Please enter a valid Email';
                 }
+                return null;
               },
             ),
-            SizedBox(
-              height: 25.0,
-            ),
+            const SizedBox(height: 25.0),
             TextFormField(
               focusNode: f2,
               style: GoogleFonts.lato(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
               ),
-              //keyboardType: TextInputType.visiblePassword,
               controller: _passwordController,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(90.0)),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey[350],
+                fillColor: Colors.grey[300],
                 hintText: 'Password',
                 hintStyle: GoogleFonts.lato(
                   color: Colors.black26,
@@ -150,7 +143,9 @@ class _SignInState extends State<SignIn> {
               },
               textInputAction: TextInputAction.done,
               validator: (value) {
-                if (value.isEmpty) return 'Please enter the Passord';
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the Password';
+                }
                 return null;
               },
               obscureText: true,
@@ -171,15 +166,15 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState?.validate() ?? false) {
                       showLoaderDialog(context);
                       _signInWithEmailAndPassword();
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 2,
-                    primary: Colors.indigo[900],
-                    onPrimary: Colors.black,
+                    backgroundColor: Colors.indigo[900],
+                    foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),
                     ),
@@ -187,88 +182,60 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: TextButton(
-                style: ButtonStyle(
-                    overlayColor:
-                        MaterialStateProperty.all(Colors.transparent)),
-                onPressed: () {},
-                child: Text(
-                  'Forgot Password?',
-                  style: GoogleFonts.lato(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w600,
-                  ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Forgot Password?',
+                style: GoogleFonts.lato(
+                  fontSize: 16,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.red[700],
-                        borderRadius: BorderRadius.circular(32)),
-                    child: IconButton(
-                      icon: Icon(
-                        FlutterIcons.google_ant,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    ),
+                  IconButton(
+                    icon: Icon(Icons.g_mobiledata),
+                    color: Colors.red[700],
+                    onPressed: () {},
                   ),
-                  SizedBox(
-                    width: 30,
+                  const SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(Icons.facebook),
+                    color: Colors.blue[900],
+                    onPressed: () {},
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: BorderRadius.circular(32)),
-                    child: IconButton(
-                      icon: Icon(
-                        FlutterIcons.facebook_f_faw,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    ),
-                  )
                 ],
               ),
             ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: GoogleFonts.lato(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => _pushPage(context, Register()),
+                    child: Text(
+                      'Signup here',
                       style: GoogleFonts.lato(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: Colors.indigo[700],
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    TextButton(
-                      style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent)),
-                      onPressed: () => _pushPage(context, Register()),
-                      child: Text(
-                        'Signup here',
-                        style: GoogleFonts.lato(
-                          fontSize: 15,
-                          color: Colors.indigo[700],
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -284,43 +251,37 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
-  showLoaderDialog(BuildContext context) {
+  void showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
-      content: new Row(
-        children: [
+      content: Row(
+        children: const [
           CircularProgressIndicator(),
-          Container(
-              margin: EdgeInsets.only(left: 15), child: Text("Loading...")),
+          SizedBox(width: 15),
+          Text("Loading..."),
         ],
       ),
     );
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
+      builder: (BuildContext context) => alert,
     );
   }
 
   bool emailValidate(String email) {
-    if (RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email)) {
-      return true;
-    } else {
-      return false;
-    }
+    return RegExp(
+            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+        .hasMatch(email);
   }
 
   void _signInWithEmailAndPassword() async {
     try {
-      final User user = (await _auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
+      final User? user = (await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       ))
           .user;
-      if (!user.emailVerified) {
+      if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
       }
       Navigator.of(context)
@@ -328,11 +289,9 @@ class _SignInState extends State<SignIn> {
     } catch (e) {
       final snackBar = SnackBar(
         content: Row(
-          children: [
-            Icon(
-              Icons.info_outline,
-              color: Colors.white,
-            ),
+          children: const [
+            Icon(Icons.info_outline, color: Colors.white),
+            SizedBox(width: 8),
             Text(" There was a problem signing you in"),
           ],
         ),
