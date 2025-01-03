@@ -2,15 +2,10 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/painting.dart';
 import 'package:health_and_doctor_appointment/firestore-data/notificationList.dart';
-import 'package:health_and_doctor_appointment/model/cardModel.dart';
-import 'package:health_and_doctor_appointment/carouselSlider.dart';
-import 'package:health_and_doctor_appointment/screens/exploreList.dart';
 import 'package:health_and_doctor_appointment/firestore-data/searchList.dart';
-import 'package:health_and_doctor_appointment/firestore-data/topRatedList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     user = _auth.currentUser;
   }
 
+  // ignore: unused_element
   Future<void> _signOut() async {
     await _auth.signOut();
   }
@@ -158,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         suffixIcon: Container(
                           decoration: BoxDecoration(
-                            color: Colors.blue[900]?.withOpacity(0.9),
+                            color: Colors.blue[900]?.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: IconButton(

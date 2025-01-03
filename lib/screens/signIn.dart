@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_and_doctor_appointment/screens/register.dart';
 
-import '../mainPage.dart';
 
 class SignIn extends StatefulWidget {
   @override

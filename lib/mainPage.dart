@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:health_and_doctor_appointment/firestore-data/searchList.dart';
 import 'package:health_and_doctor_appointment/screens/homePage.dart';
 import 'package:health_and_doctor_appointment/screens/myAppointments.dart';
 import 'package:health_and_doctor_appointment/screens/userProfile.dart';
@@ -9,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:quick_actions/quick_actions.dart';
+
 
 class MainPage extends StatefulWidget {
   @override

@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master.swiftconstvalues",
+    "dependencies" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master.d",
+    "diagnostics" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master.dia",
+    "emit-module-dependencies" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master-emit-module.dia",
+    "swift-dependencies" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/Runner-master.swiftdeps"
+  },
+  "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/Runner/AppDelegate.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/AppDelegate.o"
+  },
+  "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/osamaalabaji/Downloads/Health_and_Doctor_Appointment-1/ios/build/Runner.build/Release-iphoneos/Runner.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

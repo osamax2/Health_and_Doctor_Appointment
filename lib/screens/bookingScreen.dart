@@ -71,13 +71,11 @@ class _BookingScreenState extends State<BookingScreen> {
     String formattedTime = localizations.formatTimeOfDay(selectedTime!,
         alwaysUse24HourFormat: false);
 
-    if (formattedTime != null) {
-      setState(() {
-        timeText = formattedTime;
-        _timeController.text = timeText;
-      });
-    }
-    date_Time = selectedTime.toString().substring(10, 15);
+    setState(() {
+      timeText = formattedTime;
+      _timeController.text = timeText;
+    });
+      date_Time = selectedTime.toString().substring(10, 15);
   }
 
   showAlertDialog(BuildContext context) {

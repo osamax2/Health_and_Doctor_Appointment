@@ -11,7 +11,6 @@ class AppointmentHistoryList extends StatefulWidget {
 class _AppointmentHistoryListState extends State<AppointmentHistoryList> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   late User user;
-  late String _documentID;
 
   Future<void> _getUser() async {
     user = _auth.currentUser!;
@@ -36,6 +35,7 @@ class _AppointmentHistoryListState extends State<AppointmentHistoryList> {
         .delete();
   }
 
+  // ignore: unused_element
   String _timeFormatter(String _timestamp) {
    DateTime dateTime = DateTime.parse(_timestamp);
 
