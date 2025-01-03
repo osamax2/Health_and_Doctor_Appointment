@@ -43,15 +43,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     int hour = now.hour;
-    String _message = 'Hello'; 
+    String _message = 'مرحبا بكم'; 
 
     setState(() {
       if (hour >= 5 && hour < 12) {
-        _message = 'Good Morning';
+        _message = 'صباح الخير';
       } else if (hour >= 12 && hour <= 17) {
-        _message = 'Good Afternoon';
+        _message = 'مساء الخير';
       } else {
-        _message = 'Good Evening';
+        _message = 'مساء الخير';
       }
     });
 

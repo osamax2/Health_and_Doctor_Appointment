@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "618634527179",
+    "project_id": "syrappointment",
+    "storage_bucket": "syrappointment.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618634527179:android:11c83ce5727e49ce46364e",
+        "android_client_info": {
+          "package_name": "com.example.syrappointment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb7ginXVpMw4If50Xzj1j7dbgQ6UoMLuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

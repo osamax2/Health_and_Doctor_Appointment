@@ -16,20 +16,20 @@ class _SkipState extends State<Skip> {
       PageViewModel(
         title: '',
         image: Image.asset(
-          'assets/doc.png',
+          'assets/berlin-embassy-ar.png',
           //fit: BoxFit.cover,
         ),
-        //body: "Search Doctors",
+        //body: "ابحث عن خدماتنا",
         bodyWidget: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Search Doctors',
+              'سجل موعد',
               style:
                   GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w900),
             ),
             Text(
-              'Find popular doctors nearby you',
+              'يمكنك الأن إيجاد موعد بأسرع وقت ممكن',
               style: GoogleFonts.lato(
                   fontSize: 15,
                   color: Colors.grey[500],
@@ -41,20 +41,21 @@ class _SkipState extends State<Skip> {
       PageViewModel(
         title: '',
         image: Image.asset(
-          'assets/disease.png',
-          //fit: BoxFit.cover,
+          'assets/active-search-512.png',
+          fit: BoxFit.cover,
+          width: 300,
         ),
         //body: "Search Doctors",
         bodyWidget: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Search Disease',
+              'البحث في خدماتنا',
               style:
                   GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w900),
             ),
             Text(
-              'Find information about disease',
+              'ابحث عن معلومات حول جميع خدماتنا',
               style: GoogleFonts.lato(
                   fontSize: 15,
                   color: Colors.grey[500],
@@ -70,7 +71,7 @@ class _SkipState extends State<Skip> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroductionScreen(
-        globalBackgroundColor: Colors.lightBlue[100],
+        globalBackgroundColor: Colors.white,
         pages: getpages(),
         showNextButton: false,
         showSkipButton: true,
@@ -80,15 +81,15 @@ class _SkipState extends State<Skip> {
           child: Card(
             child: Center(
               child: Text(
-                'Skip',
+                'تخطي',
                 textAlign: TextAlign.center,
                 style:
-                    GoogleFonts.lato(fontSize: 25, fontWeight: FontWeight.w900),
+                    GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.w900),
               ),
             ),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            color: Colors.blue[300],
+            color: Color.fromRGBO(0, 122, 61, 0.4),
             shadowColor: Colors.blueGrey[100],
             elevation: 5,
           ),
@@ -98,7 +99,7 @@ class _SkipState extends State<Skip> {
           child: Card(
             child: Center(
               child: Text(
-                'Continue',
+                'متابعة',
                 textAlign: TextAlign.center,
                 style:
                     GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.w900),
@@ -106,7 +107,7 @@ class _SkipState extends State<Skip> {
             ),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            color: Colors.blue[300],
+            color: Color.fromRGBO(0, 122, 61, 0.4),
             shadowColor: Colors.blueGrey[200],
             elevation: 5,
           ),

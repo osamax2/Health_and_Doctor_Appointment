@@ -19,9 +19,9 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/image-medical.jpg",
+                  "assets/emojipng.com-1586582.png",
                 ),
-                fit: BoxFit.cover,
+                fit: BoxFit.scaleDown ,
               ),
             ),
           ),
@@ -35,7 +35,7 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'HELLO',
+                      'مرحبا',
                       style: GoogleFonts.b612(
                         color: Colors.black,
                         fontSize: 50,
@@ -43,9 +43,9 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                       ),
                     ),
                     Text(
-                      'Welcome to Medico!',
+                      '!مرحباً بكم في السفارة السورية ببرلين',
                       style: GoogleFonts.b612(
-                        color: Colors.indigo[800],
+                        color: Color.fromRGBO(0, 122, 61, 1),
                         fontSize: 17,
                         fontWeight: FontWeight.w400,
                       ),
@@ -78,7 +78,7 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                             height: 50.0,
                             child: ElevatedButton(
                               child: Text(
-                                "Sign in",
+                                "تسجيل الدخول",
                                 style: GoogleFonts.lato(
                                   color: Colors.white,
                                   fontSize: 18.0,
@@ -87,7 +87,7 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                               ),
                               onPressed: () => _pushPage(context, SignIn()),
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.indigo[800]!, elevation: 2, backgroundColor: Colors.indigo[800]!,
+                                foregroundColor: Color.fromRGBO(0, 122, 61, 1)!, elevation: 2, backgroundColor: Color.fromRGBO(0, 122, 61, 1)!,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(32.0),
                                 ),
@@ -104,7 +104,7 @@ class _FireBaseAuthState extends State<FireBaseAuth> {
                             height: 50.0,
                             child: ElevatedButton(
                               child: Text(
-                                "Create an Account",
+                                "إنشاء حساب",
                                 style: GoogleFonts.lato(
                                   color: Colors.black,
                                   fontSize: 18.0,

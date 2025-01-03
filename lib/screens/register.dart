@@ -70,48 +70,51 @@ class _RegisterState extends State<Register> {
             Container(
               padding: const EdgeInsets.only(bottom: 50),
               child: Text(
-                'Sign up',
+                'إنشاء حساب',
                 style: GoogleFonts.lato(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
+                textDirection: TextDirection.rtl,
               ),
             ),
             _buildTextField(
               controller: _displayName,
-              hintText: 'Name',
+              hintText: 'الإسم الكامل',
+              
               focusNode: f1,
               nextFocusNode: f2,
-              validator: (value) => value!.isEmpty ? 'Please enter the Name' : null,
+              validator: (value) => value!.isEmpty ? 'الرجاء إدخال الاسم' : null,
             ),
             const SizedBox(height: 25.0),
             _buildTextField(
               controller: _emailController,
-              hintText: 'Email',
+              hintText: 'البريد الإلكتروني',
               focusNode: f2,
               nextFocusNode: f3,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter the Email';
+                  return 'الرجاء إدخال البريد الإلكتروني';
                 } else if (!emailValidate(value)) {
-                  return 'Please enter a valid Email';
+                  return 'الرجاء إدخال بريد إلكتروني صالح';
                 }
                 return null;
               },
             ),
+            
             const SizedBox(height: 25.0),
             _buildTextField(
               controller: _passwordController,
-              hintText: 'Password',
+              hintText: 'كلمة المرور',
               focusNode: f3,
               nextFocusNode: f4,
               isPassword: true,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter the Password';
+                  return 'الرجاء إدخال كلمة المرور';
                 } else if (value.length < 8) {
-                  return 'Password must be at least 8 characters long';
+                  return 'يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل';
                 }
                 return null;
               },
@@ -119,14 +122,14 @@ class _RegisterState extends State<Register> {
             const SizedBox(height: 25.0),
             _buildTextField(
               controller: _passwordConfirmController,
-              hintText: 'Confirm Password',
+              hintText: 'تأكيد كلمة المرور',
               focusNode: f4,
               isPassword: true,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter the Password';
+                  return 'الرجاء إدخال كلمة المرور';
                 } else if (value != _passwordController.text) {
-                  return 'Passwords do not match';
+                  return 'كلمات المرور غير متطابقة';
                 }
                 return null;
               },
@@ -138,7 +141,7 @@ class _RegisterState extends State<Register> {
                 height: 50,
                 child: ElevatedButton(
                   child: Text(
-                    "Sign In",
+                    "تسجيل الدخول",
                     style: GoogleFonts.lato(
                       color: Colors.white,
                       fontSize: 18.0,
@@ -153,7 +156,7 @@ class _RegisterState extends State<Register> {
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 2,
-                    backgroundColor: Colors.indigo[900],
+                    backgroundColor: Color.fromRGBO(0, 122, 61, 1),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),
                     ),
@@ -172,12 +175,12 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.g_mobiledata, color: Colors.red[700]),
+                    icon: Icon(Icons.g_mobiledata, color: Color.fromRGBO(0, 122, 61, 1)),
                     onPressed: () {},
                   ),
                   const SizedBox(width: 30),
                   IconButton(
-                    icon: Icon(Icons.facebook, color: Colors.blue[900]),
+                    icon: Icon(Icons.facebook, color: Color.fromRGBO(0, 122, 61, 1)),
                     onPressed: () {},
                   ),
                 ],
@@ -188,20 +191,23 @@ class _RegisterState extends State<Register> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Already have an account?",
-                    style: GoogleFonts.lato(fontSize: 15.0, fontWeight: FontWeight.w700),
-                  ),
                   TextButton(
                     onPressed: () => _pushPage(context, SignIn()),
                     child: Text(
-                      'Sign in',
+                      'تسجيل الدخول',
                       style: GoogleFonts.lato(
                         fontSize: 15,
-                        color: Colors.indigo[700],
+                        color: Color.fromRGBO(0, 122, 61, 1),
                         fontWeight: FontWeight.w600,
+                        
                       ),
+                      textDirection: TextDirection.rtl,
                     ),
+                  ),
+                   Text(
+                    "هل لديك حساب بالفعل؟",
+                    style: GoogleFonts.lato(fontSize: 15.0, fontWeight: FontWeight.w700),
+                    textDirection: TextDirection.rtl,
                   ),
                 ],
               ),
@@ -223,6 +229,7 @@ class _RegisterState extends State<Register> {
   }) {
     return TextFormField(
       controller: controller,
+      textAlign: TextAlign.center, // Center text and hintText
       focusNode: focusNode,
       keyboardType: keyboardType,
       textInputAction: nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
